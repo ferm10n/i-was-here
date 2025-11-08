@@ -16,4 +16,11 @@ export default createVuetify({
   theme: {
     defaultTheme: 'system',
   },
+  defaults: {
+    global: {
+      style: {
+        fontFamily: `-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif`,
+      },
+    },
+  },
 })
