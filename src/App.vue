@@ -16,16 +16,24 @@
               variant="tonal"
             >
               <GoogleMap
+                ref="googleMap"
                 :api-key="googleMapsApiKey"
+                map-id="DEMO_MAP_ID"
                 style="width: 100%; height: 500px"
                 :center="center"
                 :zoom="15"
+                :fullscreen-control="false"
+                :clickable-icons="false"
+                :disable-default-ui="true"
+                gesture-handling="greedy"
+                @click="onMapClick"
+                @dragend="updateMarkerByMapCenter"
               >
-                <Marker :options="{ position: center }" />
+                <AdvancedMarker :options="{ position: markerPosition }" />
               </GoogleMap>
             </v-card>
           </v-col>
-          <v-col v-cols="12">
+          <v-col cols="12">
             <div>Enter address here</div>
           </v-col>
         </v-row>
@@ -35,8 +43,42 @@
 </template>
 
 <script setup lang="ts">
-import { GoogleMap, Marker } from 'vue3-google-map'
+import { ref } from 'vue'
+import {
+  GoogleMap,
+  AdvancedMarker,
+
+} from 'vue3-google-map'
+
+const googleMap = ref<{
+  map: google.maps.Map;
+} | null>(null);
 
 const center = { lat: 40.689247, lng: -74.044502 }
 const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+
+const markerPosition = ref(center)
+
+const onMapClick = (event: google.maps.MapMouseEvent) => {
+  if (event.latLng) {
+    markerPosition.value = {
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng()
+    }
+
+    if (googleMap.value) {
+      googleMap.value.map.panTo(event.latLng);
+    }
+  }
+}
+
+const updateMarkerByMapCenter = () => {
+  const newCenter = googleMap.value?.map.getCenter();
+  if (newCenter) {
+    markerPosition.value = {
+      lat: newCenter.lat(),
+      lng: newCenter.lng(),
+    };
+  }
+}
 </script>

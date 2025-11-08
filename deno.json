@@ -37,6 +37,7 @@
     "@std/dotenv": "jsr:@std/dotenv@^0.225.5",
     "@std/http": "jsr:@std/http@^1.0.21",
     "@tsconfig/node22": "npm:@tsconfig/node22@^22.0.2",
+    "@types/google.maps": "npm:@types/google.maps@^3.58.1",
     "@types/node": "npm:@types/node@^22.19.0",
     "@vitejs/plugin-vue": "npm:@vitejs/plugin-vue@^6.0.1",
     "@vue/tsconfig": "npm:@vue/tsconfig@~0.8.1",
@@ -49,6 +50,7 @@
     "vite-plugin-vuetify": "npm:vite-plugin-vuetify@^2.1.2",
     "vue": "npm:vue@^3.5.24",
     "vue-tsc": "npm:vue-tsc@^3.1.3",
+    "vue3-google-map": "npm:vue3-google-map@~0.25.1",
     "vuetify": "npm:vuetify@^3.10.9"
   }
 }

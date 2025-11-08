@@ -16,6 +16,7 @@
     "jsr:@zod/zod@^4.1.12": "4.1.12",
     "npm:@mdi/font@7.4.47": "7.4.47",
     "npm:@tsconfig/node22@^22.0.2": "22.0.2",
+    "npm:@types/google.maps@^3.58.1": "3.58.1",
     "npm:@types/node@^22.19.0": "22.19.0",
     "npm:@vitejs/plugin-vue@^6.0.1": "6.0.1_vite@7.2.2__@types+node@22.19.0__sass-embedded@1.93.3__picomatch@4.0.3_vue@3.5.24__typescript@5.9.3_@types+node@22.19.0_sass-embedded@1.93.3_typescript@5.9.3",
     "npm:@vue/tsconfig@~0.8.1": "0.8.1_typescript@5.9.3_vue@3.5.24__typescript@5.9.3",
@@ -24,8 +25,10 @@
     "npm:typescript@~5.9.3": "5.9.3",
     "npm:unplugin-vue-components@^29.2.0": "29.2.0_vue@3.5.24__typescript@5.9.3_typescript@5.9.3",
     "npm:vite-plugin-vuetify@^2.1.2": "2.1.2_vite@7.2.2__@types+node@22.19.0__sass-embedded@1.93.3__picomatch@4.0.3_vue@3.5.24__typescript@5.9.3_vuetify@3.10.9__typescript@5.9.3__vite-plugin-vuetify@2.1.2__vue@3.5.24___typescript@5.9.3__vite@7.2.2___@types+node@22.19.0___sass-embedded@1.93.3___picomatch@4.0.3__@types+node@22.19.0__sass-embedded@1.93.3_@types+node@22.19.0_sass-embedded@1.93.3_typescript@5.9.3",
+    "npm:vite@*": "7.2.2_@types+node@22.19.0_sass-embedded@1.93.3_picomatch@4.0.3",
     "npm:vite@^7.2.2": "7.2.2_@types+node@22.19.0_sass-embedded@1.93.3_picomatch@4.0.3",
     "npm:vue-tsc@^3.1.3": "3.1.3_typescript@5.9.3",
+    "npm:vue3-google-map@~0.25.1": "0.25.1_vue@3.5.24__typescript@5.9.3_typescript@5.9.3",
     "npm:vue@^3.5.24": "3.5.24_typescript@5.9.3",
     "npm:vuetify@^3.10.9": "3.10.9_typescript@5.9.3_vite-plugin-vuetify@2.1.2__vite@7.2.2___@types+node@22.19.0___sass-embedded@1.93.3___picomatch@4.0.3__vue@3.5.24___typescript@5.9.3__vuetify@3.10.9__@types+node@22.19.0__sass-embedded@1.93.3__typescript@5.9.3_vue@3.5.24__typescript@5.9.3_vite@7.2.2__@types+node@22.19.0__sass-embedded@1.93.3__picomatch@4.0.3_@types+node@22.19.0_sass-embedded@1.93.3"
   },
@@ -237,6 +240,20 @@
       "integrity": "sha512-alJC0uCZpTFrSL0CCDjcgleBXPnCrEAhTBILpeAp7M/OFgoqtAetfBzX0xM00MUsVVPpVjlPuMbREqnZCXaTnA==",
       "os": ["win32"],
       "cpu": ["x64"]
+    },
+    "@googlemaps/js-api-loader@2.0.2": {
+      "integrity": "sha512-bKVuTqatS8Jven5aFqVB7rCHF1VFEzpzyi0ruzO0GUR+A7m9oMqMgtnmpANj7kMYEvvhty8Fk7TnJ1MKjWHu+Q==",
+      "dependencies": [
+        "@types/google.maps"
+      ]
+    },
+    "@googlemaps/markerclusterer@2.6.2": {
+      "integrity": "sha512-U6uVhq8iWhiIckA89sgRu8OK35mjd6/3CuoZKWakKEf0QmRRWpatlsPb3kqXkoWSmbcZkopRiI4dnW6DQSd7bQ==",
+      "dependencies": [
+        "@types/supercluster",
+        "fast-equals",
+        "supercluster"
+      ]
     },
     "@jridgewell/gen-mapping@0.3.13": {
       "integrity": "sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==",
@@ -477,10 +494,22 @@
     "@types/estree@1.0.8": {
       "integrity": "sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w=="
     },
+    "@types/geojson@7946.0.16": {
+      "integrity": "sha512-6C8nqWur3j98U6+lXDfTUWIfgvZU+EumvpHKcYjujKH7woYyLj2sUmff0tRhrqM7BohUw7Pz3ZB1jj2gW9Fvmg=="
+    },
+    "@types/google.maps@3.58.1": {
+      "integrity": "sha512-X9QTSvGJ0nCfMzYOnaVs/k6/4L+7F5uCS+4iUmkLEls6J9S/Phv+m/i3mDeyc49ZBgwab3EFO1HEoBY7k98EGQ=="
+    },
     "@types/node@22.19.0": {
       "integrity": "sha512-xpr/lmLPQEj+TUnHmR+Ab91/glhJvsqcjB+yY0Ix9GO70H6Lb4FHH5GeqdOE5btAx7eIMwuHkp4H2MSkLcqWbA==",
       "dependencies": [
         "undici-types"
+      ]
+    },
+    "@types/supercluster@7.1.3": {
+      "integrity": "sha512-Z0pOY34GDFl3Q6hUFYf3HkTwKEE02e7QgtJppBt+beEAxnyOpJua+voGFvxINBHa06GwLFFym7gRPY2SiKIfIA==",
+      "dependencies": [
+        "@types/geojson"
       ]
     },
     "@vitejs/plugin-vue@6.0.1_vite@7.2.2__@types+node@22.19.0__sass-embedded@1.93.3__picomatch@4.0.3_vue@3.5.24__typescript@5.9.3_@types+node@22.19.0_sass-embedded@1.93.3_typescript@5.9.3": {
@@ -736,6 +765,12 @@
     "exsolve@1.0.7": {
       "integrity": "sha512-VO5fQUzZtI6C+vx4w/4BWJpg3s/5l+6pRQEHzFRM8WFi4XffSP1Z+4qi7GbjWbvRQEbdIco5mIMq+zX4rPuLrw=="
     },
+    "fast-deep-equal@3.1.3": {
+      "integrity": "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q=="
+    },
+    "fast-equals@5.3.2": {
+      "integrity": "sha512-6rxyATwPCkaFIL3JLqw8qXqMpIZ942pTX/tbQFkRsDGblS8tNGtlUauA/+mt6RUfqn/4MoEr+WDkYoIQbibWuQ=="
+    },
     "fdir@6.5.0_picomatch@4.0.3": {
       "integrity": "sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==",
       "dependencies": [
@@ -794,6 +829,9 @@
     },
     "json-parse-even-better-errors@4.0.0": {
       "integrity": "sha512-lR4MXjGNgkJc7tkQ97kb2nuEMnNCyU//XYVH0MKTGcXEiSudQ5MKGKen3C5QubYy0vmq+JGitUg92uuywGEwIA=="
+    },
+    "kdbush@4.0.2": {
+      "integrity": "sha512-WbCVYJ27Sz8zi9Q7Q0xHC+05iwkm3Znipc2XTlrnJbsHMYktW4hPhXUE8Ys1engBrvffoSCqbil1JQAa7clRpA=="
     },
     "local-pkg@1.1.2": {
       "integrity": "sha512-arhlxbFRmoQHl33a0Zkle/YWlmNwoyt6QNZEIJcqNbdrsix5Lvc4HyyI3EnwxTYlZYc32EbYrQ8SzEZ7dqgg9A==",
@@ -1119,6 +1157,12 @@
     "source-map-js@1.2.1": {
       "integrity": "sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA=="
     },
+    "supercluster@8.0.1": {
+      "integrity": "sha512-IiOea5kJ9iqzD2t7QJq/cREyLHTtSmUT6gQsweojg9WH2sYJqZK9SswTu6jrscO6D1G5v5vYZ9ru/eq85lXeZQ==",
+      "dependencies": [
+        "kdbush"
+      ]
+    },
     "supports-color@8.1.1": {
       "integrity": "sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==",
       "dependencies": [
@@ -1240,6 +1284,15 @@
       ],
       "bin": true
     },
+    "vue3-google-map@0.25.1_vue@3.5.24__typescript@5.9.3_typescript@5.9.3": {
+      "integrity": "sha512-y0LH5MU5Y66p5qndFkdBn0txbFrkBEsgnvPUonjQ8zQ1G5cLci/V+4Fy3e9h7g9OSurOcGkpUW2EMvf2aJ94eQ==",
+      "dependencies": [
+        "@googlemaps/js-api-loader",
+        "@googlemaps/markerclusterer",
+        "fast-deep-equal",
+        "vue"
+      ]
+    },
     "vue@3.5.24_typescript@5.9.3": {
       "integrity": "sha512-uTHDOpVQTMjcGgrqFPSb8iO2m1DUvo+WbGqoXQz8Y1CeBYQ0FXf2z1gLRaBtHjlRz7zZUBHxjVB5VTLzYkvftg==",
       "dependencies": [
@@ -1291,6 +1344,7 @@
       "jsr:@zod/zod@^4.1.12",
       "npm:@mdi/font@7.4.47",
       "npm:@tsconfig/node22@^22.0.2",
+      "npm:@types/google.maps@^3.58.1",
       "npm:@types/node@^22.19.0",
       "npm:@vitejs/plugin-vue@^6.0.1",
       "npm:@vue/tsconfig@~0.8.1",
@@ -1301,6 +1355,7 @@
       "npm:vite-plugin-vuetify@^2.1.2",
       "npm:vite@^7.2.2",
       "npm:vue-tsc@^3.1.3",
+      "npm:vue3-google-map@~0.25.1",
       "npm:vue@^3.5.24",
       "npm:vuetify@^3.10.9"
     ]
