@@ -60,7 +60,10 @@ Deno.serve({
 
       // If it's a file, serve it directly
       if (pathStat.isFile) {
-        return serveDir(req, { fsRoot });
+        return serveDir(req, {
+          fsRoot,
+          headers: ['Cache-Control: public, max-age=86400'],
+        });
       }
     } catch {
       // File doesn't exist, continue to serve index.html
@@ -68,7 +71,10 @@ Deno.serve({
 
     // For all other routes, serve index.html to support SPA client-side routing
     return new Response(await Deno.readFile(`${fsRoot}/index.html`), {
-      headers: { 'Content-Type': 'text/html' },
+      headers: {
+        'Content-Type': 'text/html',
+        'Cache-Control': 'no-store, max-age=0',
+      },
     });
   } catch (error) {
     if (error instanceof Response) {

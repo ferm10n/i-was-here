@@ -17,8 +17,13 @@
   },
   "lint": {
     "files": {
-      "include": ["src/"],
-      "exclude": ["dist/"]
+      "include": [
+        "src/",
+        "server/"
+      ],
+      "exclude": [
+        "dist/"
+      ]
     }
   },
   "fmt": {
