@@ -6,6 +6,7 @@
 
 // Plugins
 import { registerPlugins } from './plugins/index.ts'
+import { setOptions, importLibrary } from "@googlemaps/js-api-loader";
 
 // Components
 import App from './App.vue'
@@ -16,14 +17,24 @@ import { createApp } from 'vue'
 // Assets
 import faviconUrl from './assets/favicon.ico'
 
+setOptions({ key: import.meta.env.VITE_GOOGLE_MAPS_API_KEY });
+
 // Set favicon with content hash so it works caching well
 const link = document.querySelector("link[rel='icon']") as HTMLLinkElement
 if (link) {
   link.href = faviconUrl
 }
 
-const app = createApp(App)
+// not the most elegant way to handle this but we're speedrunning rn
+importLibrary('maps')
+  .then(() => importLibrary('places'))
+  .then(() => {
+    const app = createApp(App);
 
-registerPlugins(app)
+    registerPlugins(app);
 
-app.mount('#app')
+    app.mount('#app');
+  }).catch(err => {
+    console.trace(err);
+    alert(`Failed to load the Google Maps API! ${err.message}`);
+  });

@@ -20,5 +20,6 @@
     },
     "peacock.remoteColor": "#dd0531",
     "deno.enable": true,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
 }
