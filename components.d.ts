@@ -13,5 +13,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     LocationBtn: typeof import('./src/components/LocationBtn.vue')['default']
+    MapView: typeof import('./src/components/MapView.vue')['default']
   }
 }

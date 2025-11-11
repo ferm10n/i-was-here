@@ -11,6 +11,7 @@
 <script setup lang="ts">
 import {
   defineEmits,
+  watch,
 } from 'vue';
 import {
   useInterval,
@@ -24,13 +25,14 @@ export type LocationUpdate = {
 
 const emit = defineEmits<{
   (e: 'locationUpdate', locationUpdate: LocationUpdate): void;
+  (e: 'update:is-active', isActive: boolean): void;
 }>();
 
 const {
   isActive,
   resume,
   pause,
-} = useInterval(60 * 1000, {
+} = useInterval(10 * 1000, {
   callback: () => getCurrentPosition(),
   controls: true,
   immediate: false,
@@ -67,4 +69,8 @@ const onLocationClick = () => {
     resume();
   }
 }
+
+watch(isActive, isActiveVal => {
+  emit('update:is-active', isActiveVal);
+})
 </script>
