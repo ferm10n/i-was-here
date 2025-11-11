@@ -14,6 +14,9 @@
             <MapView style="width: 100%; height: 500px" ref="mapView" :center="center" :geolocation="geolocation"
               v-model:marker-position="markerPosition" @map-interaction="onMapInteraction" />
           </v-col>
+          <v-col cols="12">
+            <SaveLocationBtn />
+          </v-col>
         </v-row>
       </v-container>
     </v-main>
@@ -26,12 +29,14 @@ import GoogleAddressAutocomplete from 'vue3-google-address-autocomplete'
 import { metersToZoom } from './util'
 import LocationBtn, { type LocationUpdate } from './components/LocationBtn.vue'
 import MapView from './components/MapView.vue'
+import SaveLocationBtn from './components/SaveLocationBtn.vue'
 
 const mapView = ref<InstanceType<typeof MapView> | null>(null);
 
 const placeInput = ref('');
 
-const center = { lat: 40.689247, lng: -74.044502 }
+const center = { lat: 43.98335154739757, lng: -84.80892366670454 }
+// const initialZoom - 1;
 const markerPosition = ref(center)
 
 // we've already loaded the library in main.ts, but the apiKey is a required prop

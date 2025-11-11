@@ -14,5 +14,6 @@ declare module 'vue' {
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     LocationBtn: typeof import('./src/components/LocationBtn.vue')['default']
     MapView: typeof import('./src/components/MapView.vue')['default']
+    SaveLocationBtn: typeof import('./src/components/SaveLocationBtn.vue')['default']
   }
 }

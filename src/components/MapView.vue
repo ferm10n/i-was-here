@@ -86,6 +86,7 @@ const updateMarkerByMapCenter = () => {
       lat: newCenter.lat(),
       lng: newCenter.lng(),
     };
+    console.log(currentMapCenter.value);
   }
 }
 
