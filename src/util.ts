@@ -1,3 +1,6 @@
+
+import type { ApiRouter } from '../server/api/router.ts';
+
 /**
  * Converts a distance in meters to an appropriate Google Maps zoom level.
  * The zoom level determines how close the map is zoomed in.
@@ -21,4 +24,23 @@ export function metersToZoom(meters: number): number {
 
   // Clamp between valid zoom levels (0-21)
   return Math.max(0, Math.min(21, Math.round(zoom)));
+}
+
+export function apiRequest<
+  ENDPOINT extends keyof ApiRouter,
+  INPUT = ApiRouter[ENDPOINT]['input'],
+  OUTPUT = ApiRouter[ENDPOINT]['output'],
+>(endpoint: ENDPOINT, input: INPUT): Promise<OUTPUT> {
+  return fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(input),
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+    return response.json() as Promise<OUTPUT>;
+  });
 }

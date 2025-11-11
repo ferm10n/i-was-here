@@ -11,18 +11,42 @@
     </v-sheet>
   </div>
   <div v-if="expanded">
-    <v-checkbox hide-details label="Revisit" />
-    <v-text-field hide-details label="Note" clearable />
+    <v-checkbox v-model="revisit" hide-details label="Revisit" />
+    <v-text-field v-model="note" hide-details label="Note" clearable />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { apiRequest } from '../util';
 
+interface Props {
+  markerPosition: { lat: number; lng: number };
+}
 
+const props = defineProps<Props>();
 const expanded = ref(false);
+const note = ref('');
+const revisit = ref(false);
 
-function saveLocation() {
+async function saveLocation() {
+  try {
+    const result = await apiRequest('/api/save-location', {
+      lat: props.markerPosition.lat,
+      lng: props.markerPosition.lng,
+      note: note.value || undefined,
+      revisit: revisit.value || undefined,
+    });
 
+    console.log('Location saved:', result);
+    // TODO: Show success message to user
+
+    // Reset form
+    note.value = '';
+    revisit.value = false;
+  } catch (error) {
+    console.error('Failed to save location:', error);
+    // TODO: Show error message to user
+  }
 }
 </script>

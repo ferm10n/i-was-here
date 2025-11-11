@@ -15,7 +15,7 @@
               v-model:marker-position="markerPosition" @map-interaction="onMapInteraction" />
           </v-col>
           <v-col cols="12">
-            <SaveLocationBtn />
+            <SaveLocationBtn :marker-position="markerPosition" />
           </v-col>
         </v-row>
       </v-container>
