@@ -1,13 +1,17 @@
+import * as z from "@zod/zod/v4";
 import { ApiEndpointDef } from './util.ts';
 import { helloEndpoint } from './routes/hello.ts';
 import { introspectionEndpoint } from './routes/introspection.ts';
 import { saveLocationEndpoint } from './routes/save-location.ts';
-import { z } from '@zod/zod/v4';
+import { watchLocationsEndpoint } from './routes/watch-locations.ts';
+import { getLocationsEndpoint } from './routes/get-locations.ts';
 
 export const router = {
   '/api/hello': helloEndpoint,
   '/api/introspection': introspectionEndpoint,
   '/api/save-location': saveLocationEndpoint,
+  '/api/watch-locations': watchLocationsEndpoint,
+  '/api/get-locations': getLocationsEndpoint,
 } satisfies {
   [path: string]: ApiEndpointDef<any, any>;
 };

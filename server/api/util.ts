@@ -1,4 +1,6 @@
 import * as z from "@zod/zod/v4";
+import { Subject } from 'rxjs';
+import { Location } from '../db/schema.ts';
 
 export type EndpointOutput = string | Response | Record<string, unknown>;
 
@@ -9,7 +11,7 @@ export type ApiEndpointDef<INPUT extends null | z.ZodType, OUTPUT extends Endpoi
 
 export type WideApiEndpointDef = {
   inputSchema: null | z.ZodType;
-  handler: (reqBody: unknown) => Promise<EndpointOutput>;
+  handler: (reqBody: unknown, req: Request) => Promise<EndpointOutput>;
 }
 
 export function defineEndpoint<INPUT extends z.ZodType | null, OUTPUT extends EndpointOutput>(
@@ -30,3 +32,6 @@ export function parseOrDie<T>(schema: z.ZodType<T>, data: unknown): T {
   }
   return result.data;
 }
+
+/** used to broadcast new locations being added */
+export const locations$ = new Subject<Location>();

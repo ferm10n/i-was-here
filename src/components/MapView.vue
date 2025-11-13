@@ -5,6 +5,8 @@
 
     <AdvancedMarker :options="{ position: markerPosition }" />
 
+    <AdvancedMarker v-for="l of locations" :options="{ position: l }" />
+
     <CustomMarker v-if="geolocation" :options="{
       position: geolocation
     }">
@@ -23,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import {
   GoogleMap,
   Circle,
@@ -32,6 +34,7 @@ import {
 } from 'vue3-google-map'
 import { watchDebounced } from '@vueuse/core'
 import type { LocationUpdate } from './LocationBtn.vue'
+import { useLocationStreaming } from '@/composition/use-location-streaming'
 
 interface Props {
   center?: { lat: number; lng: number }
@@ -86,7 +89,6 @@ const updateMarkerByMapCenter = () => {
       lat: newCenter.lat(),
       lng: newCenter.lng(),
     };
-    console.log(currentMapCenter.value);
   }
 }
 
@@ -107,6 +109,8 @@ defineExpose({
   setZoom,
   map: googleMap
 })
+
+const { locations } = useLocationStreaming();
 </script>
 
 <style lang="css" scoped>

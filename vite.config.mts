@@ -4,6 +4,7 @@ import Vue from '@vitejs/plugin-vue'
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import process from 'node:process'
 import '@std/dotenv/load';
+import deno from '@deno/vite-plugin';
 
 // Utilities
 import { defineConfig } from 'vite'
@@ -16,6 +17,7 @@ if (!process.env.VITE_GOOGLE_MAPS_API_KEY) {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    deno(),
     Vue({
       template: { transformAssetUrls },
     }),

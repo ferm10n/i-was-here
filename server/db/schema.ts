@@ -1,16 +1,13 @@
 import {
   boolean,
-  index,
   pgTable,
   real,
   serial,
   text,
   timestamp,
-  unique,
-  varchar,
 } from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
-import * as z from '@zod/zod/v4';
+import { InferSelectModel } from 'drizzle-orm/table';
 
 export const locations = pgTable('locations', {
   id: serial('id').primaryKey(),
@@ -26,3 +23,5 @@ export const locations = pgTable('locations', {
 });
 
 export const locationInsertSchema = createInsertSchema(locations);
+
+export type Location = InferSelectModel<typeof locations>;

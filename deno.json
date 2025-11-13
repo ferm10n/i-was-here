@@ -16,16 +16,16 @@
       "DOM.Iterable"
     ]
   },
-  "lint": {
-    "files": {
-      "include": [
-        "src/",
-        "server/"
-      ],
-      "exclude": [
-        "dist/"
-      ]
-    }
+  "deploy": {
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [
+      "dist",
+      "server",
+      "deno.*"
+    ],
+    "entrypoint": "server/main.ts"
   },
   "fmt": {
     "singleQuote": true,
@@ -33,6 +33,7 @@
     "semiColons": true
   },
   "imports": {
+    "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.5",
     "@googlemaps/js-api-loader": "npm:@googlemaps/js-api-loader@^2.0.2",
     "@mdi/font": "npm:@mdi/font@7.4.47",
     "@neondatabase/serverless": "npm:@neondatabase/serverless@^1.0.2",
@@ -47,8 +48,9 @@
     "@zod/zod": "jsr:@zod/zod@^4.1.12",
     "drizzle-kit": "npm:drizzle-kit@^0.31.6",
     "drizzle-orm": "npm:drizzle-orm@^0.44.7",
-    "drizzle-zod": "npm:drizzle-zod@^0.8.3",
+    "drizzle-zod": "npm:drizzle-zod@0.8.2",
     "npm-run-all2": "npm:npm-run-all2@^8.0.4",
+    "rxjs": "npm:rxjs@^7.8.2",
     "sass-embedded": "npm:sass-embedded@^1.93.3",
     "typescript": "npm:typescript@~5.9.3",
     "unplugin-vue-components": "npm:unplugin-vue-components@^29.2.0",

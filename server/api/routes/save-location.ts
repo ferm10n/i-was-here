@@ -1,7 +1,8 @@
 import * as z from "@zod/zod/v4";
-import { defineEndpoint } from '../util.ts';
+import { defineEndpoint, locations$ } from '../util.ts';
 import { locationInsertSchema, locations } from '../../db/schema.ts';
 import { db } from '../../db/index.ts';
+
 // locations
 export const saveLocationEndpoint = defineEndpoint({
   inputSchema: locationInsertSchema,
@@ -13,9 +14,12 @@ export const saveLocationEndpoint = defineEndpoint({
         .insert(locations)
         .values(input)
         .onConflictDoUpdate({ target: locations.id, set: input })
+        .returning();
 
-      console.log('location saved', data);
-      return { ok: true };
+      locations$.next(data[0]);
+
+      console.log('location saved', data[0]);
+      return { ok: true, data };
     } catch (err) {
       console.error('failed to save location', err);
       return { ok: false };
