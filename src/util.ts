@@ -1,4 +1,5 @@
 
+import { ref } from 'vue';
 import type { ApiRouter } from '../server/api/router.ts';
 
 /**
@@ -26,6 +27,8 @@ export function metersToZoom(meters: number): number {
   return Math.max(0, Math.min(21, Math.round(zoom)));
 }
 
+export const authFailure = ref(false);
+
 export function apiRequest<
   ENDPOINT extends keyof ApiRouter,
   INPUT = ApiRouter[ENDPOINT]['input'],
@@ -39,6 +42,9 @@ export function apiRequest<
     body: JSON.stringify(input),
   }).then((response) => {
     if (!response.ok) {
+      if (response.status === 401) {
+        authFailure.value = true;
+      }
       throw new Error(`API request failed with status ${response.status}`);
     }
     return response.json() as Promise<OUTPUT>;

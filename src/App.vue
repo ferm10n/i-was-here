@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-main>
+      <SignInDialog />
       <v-container class="fill-height px-8" max-width="400">
         <v-row dense>
           <v-col cols="12">

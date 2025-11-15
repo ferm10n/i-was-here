@@ -10,8 +10,15 @@ import deno from '@deno/vite-plugin';
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
-if (!process.env.VITE_GOOGLE_MAPS_API_KEY) {
-  throw new Error('The app cannot be built without setting the VITE_GOOGLE_MAPS_API_KEY env');
+const requiredEnvVars: string[] = [
+  'VITE_GOOGLE_MAPS_API_KEY',
+  'VITE_GOOGLE_OAUTH_CLIENT_ID',
+  'VITE_GOOGLE_OAUTH_REDIRECT_URI'
+];
+for (const requiredEnvVar of requiredEnvVars) {
+  if (!process.env[requiredEnvVar]) {
+    throw new Error(`The app cannot be built without setting the ${requiredEnvVar} env`);
+  }
 }
 
 // https://vitejs.dev/config/

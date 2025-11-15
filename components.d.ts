@@ -15,5 +15,6 @@ declare module 'vue' {
     LocationBtn: typeof import('./src/components/LocationBtn.vue')['default']
     MapView: typeof import('./src/components/MapView.vue')['default']
     SaveLocationBtn: typeof import('./src/components/SaveLocationBtn.vue')['default']
+    SignInDialog: typeof import('./src/components/SignInDialog.vue')['default']
   }
 }

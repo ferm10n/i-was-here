@@ -6,11 +6,13 @@ export type EndpointOutput = string | Response | Record<string, unknown>;
 
 export type ApiEndpointDef<INPUT extends null | z.ZodType, OUTPUT extends EndpointOutput> = {
   inputSchema: INPUT;
-  handler: (reqBody: z.infer<INPUT>) => Promise<OUTPUT>;
+  protected?: boolean;
+  handler: (reqBody: z.infer<INPUT>, req: Request) => Promise<OUTPUT>;
 };
 
 export type WideApiEndpointDef = {
   inputSchema: null | z.ZodType;
+  protected?: boolean;
   handler: (reqBody: unknown, req: Request) => Promise<EndpointOutput>;
 }
 
