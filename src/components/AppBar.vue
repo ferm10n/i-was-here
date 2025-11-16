@@ -3,7 +3,6 @@
     <SignInDialog v-if="!user" />
     <v-app-bar color="primary" prominent>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-app-bar-title>I Was Here</v-app-bar-title>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" temporary>

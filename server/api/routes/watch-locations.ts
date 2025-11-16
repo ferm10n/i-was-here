@@ -1,4 +1,3 @@
-import * as z from 'zod/v4';
 import { defineEndpoint, locations$ } from '../util.ts';
 
 const textEncoder = new TextEncoder();
@@ -13,8 +12,14 @@ export const watchLocationsEndpoint = defineEndpoint({
       start(controller) {
         controller.enqueue(textEncoder.encode(`event: started\n\n`))
         unsubscribe = locations$.subscribe(newLocation => {
-          const msg = textEncoder.encode(`data: ${JSON.stringify({ lat: newLocation.lat, lng: newLocation.lng })}\n\n`);
-          controller.enqueue(msg);
+          try {
+            const msg = textEncoder.encode(`data: ${JSON.stringify({ id: newLocation.id, lat: newLocation.lat, lng: newLocation.lng })}\n\n`);
+            controller.enqueue(msg);
+          } catch (error) {
+            // Stream is closed, client disconnected
+            console.log('Client may have disconnected from location stream', error);
+            if (unsubscribe) unsubscribe();
+          }
         }).unsubscribe;
       },
       cancel() {

@@ -3,7 +3,6 @@ import Components from 'unplugin-vue-components/vite'
 import Vue from '@vitejs/plugin-vue'
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import process from 'node:process'
-import '@std/dotenv/load';
 import deno from '@deno/vite-plugin';
 
 // Utilities

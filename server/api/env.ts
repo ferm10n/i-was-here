@@ -1,4 +1,4 @@
-import '@std/dotenv/load';
+// .env will be auto loaded with the `--env` option
 
 const requiredEnv = {
   VITE_GOOGLE_OAUTH_CLIENT_ID: true,

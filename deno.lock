@@ -2,7 +2,6 @@
   "version": "5",
   "specifiers": {
     "jsr:@std/cli@^1.0.23": "1.0.23",
-    "jsr:@std/dotenv@~0.225.5": "0.225.5",
     "jsr:@std/encoding@^1.0.10": "1.0.10",
     "jsr:@std/fmt@^1.0.8": "1.0.8",
     "jsr:@std/fs@^1.0.19": "1.0.19",
@@ -24,6 +23,7 @@
     "npm:@vitejs/plugin-vue@^6.0.1": "6.0.1_vite@7.2.2__@types+node@22.19.0__sass-embedded@1.93.3__picomatch@4.0.3_vue@3.5.24__typescript@5.9.3_@types+node@22.19.0_sass-embedded@1.93.3_typescript@5.9.3",
     "npm:@vue/tsconfig@~0.8.1": "0.8.1_typescript@5.9.3_vue@3.5.24__typescript@5.9.3",
     "npm:@vueuse/core@14": "14.0.0_vue@3.5.24__typescript@5.9.3_typescript@5.9.3",
+    "npm:drizzle-kit@*": "0.31.6_esbuild@0.25.12",
     "npm:drizzle-kit@~0.31.6": "0.31.6_esbuild@0.25.12",
     "npm:drizzle-orm@~0.44.7": "0.44.7_@neondatabase+serverless@1.0.2",
     "npm:drizzle-zod@0.8.2": "0.8.2_drizzle-orm@0.44.7__@neondatabase+serverless@1.0.2_zod@3.25.76_@neondatabase+serverless@1.0.2",
@@ -47,9 +47,6 @@
   "jsr": {
     "@std/cli@1.0.23": {
       "integrity": "bf95b7a9425ba2af1ae5a6359daf58c508f2decf711a76ed2993cd352498ccca"
-    },
-    "@std/dotenv@0.225.5": {
-      "integrity": "9ce6f9d0ec3311f74a32535aa1b8c62ed88b1ab91b7f0815797d77a6f60c922f"
     },
     "@std/encoding@1.0.10": {
       "integrity": "8783c6384a2d13abd5e9e87a7ae0520a30e9f56aeeaa3bdf910a3eaaf5c811a1"
@@ -2002,7 +1999,6 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@std/dotenv@~0.225.5",
       "jsr:@std/http@^1.0.21",
       "npm:@deno/vite-plugin@^1.0.5",
       "npm:@googlemaps/js-api-loader@^2.0.2",

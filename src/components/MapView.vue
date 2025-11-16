@@ -120,7 +120,39 @@ defineExpose({
   map: googleMap
 })
 
-const { locations } = useLocationStreaming();
+/**
+ * Calculate map bounds for efficient location queries
+ */
+const mapBounds = ref<{
+  minLat: number;
+  maxLat: number;
+  minLng: number;
+  maxLng: number;
+} | null>(null);
+
+const updateBounds = () => {
+  const bounds = googleMap.value?.map.getBounds();
+  if (bounds) {
+    const ne = bounds.getNorthEast();
+    const sw = bounds.getSouthWest();
+    mapBounds.value = {
+      minLat: sw.lat(),
+      maxLat: ne.lat(),
+      minLng: sw.lng(),
+      maxLng: ne.lng(),
+    };
+  }
+};
+
+// Update bounds on map interactions
+watchDebounced(currentMapCenter, updateBounds, { debounce: 500, maxWait: 2000 });
+
+onMounted(() => {
+  // Initial bounds calculation after map loads
+  setTimeout(updateBounds, 1000);
+});
+
+const { locations } = useLocationStreaming(mapBounds);
 </script>
 
 <style lang="css" scoped>
