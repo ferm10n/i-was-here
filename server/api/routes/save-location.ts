@@ -6,14 +6,21 @@ import { db } from '../../db/index.ts';
 export const saveLocationEndpoint = defineEndpoint({
   inputSchema: locationInsertSchema,
   protected: true,
-  handler: async (input) => {
+  handler: async (input, _req, user) => {
     console.log('Saving location', input);
 
     try {
       const data = await db
         .insert(locations)
         .values(input)
-        .onConflictDoUpdate({ target: locations.id, set: input })
+        .onConflictDoUpdate({
+          target: locations.id,
+          set: {
+            ...input,
+            created_by_email: user?.email,
+            created_by_name: user?.name,
+          },
+        })
         .returning();
 
       locations$.next(data[0]);
