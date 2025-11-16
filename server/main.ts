@@ -1,26 +1,13 @@
 /// <reference lib="deno.ns" />
-import '@std/dotenv/load';
 import { serveDir } from '@std/http/file-server';
 import { parseOrDie, WideApiEndpointDef } from './api/util.ts';
 import { router } from './api/router.ts';
+import { env } from './api/env.ts';
 
 const wideRouter = router as Record<string, WideApiEndpointDef>;
 
-const requiredEnv = [
-  'VITE_GOOGLE_OAUTH_CLIENT_ID',
-  'GOOGLE_OAUTH_CLIENT_SECRET',
-  'GOOGLE_OAUTH_ACCESS_TOKEN_URL',
-  'VITE_GOOGLE_OAUTH_REDIRECT_URI',
-];
-for (const envVar of requiredEnv) {
-  if (!Deno.env.get(envVar)) {
-    console.error(`Missing required environment variable: ${envVar}`);
-    Deno.exit(1);
-  }
-}
-
 Deno.serve({
-  port: parseInt(Deno.env.get('PORT') || '6969', 10),
+  port: parseInt(env.PORT || '6969', 10),
 }, async (req) => {
   try {
     const pathname = new URL(req.url).pathname;
