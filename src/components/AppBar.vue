@@ -26,12 +26,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import SignInDialog from './SignInDialog.vue';
-import { currentUser } from '../util.ts';
+import { currentUser, skipConfirm } from '../util.ts';
 
 const drawer = ref(false);
 const user = currentUser;
 
 async function signOut() {
+  skipConfirm.value = false;
   try {
     await fetch('/api/signout', {
       method: 'POST',

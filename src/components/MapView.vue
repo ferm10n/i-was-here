@@ -1,11 +1,12 @@
 <template>
-  <GoogleMap ref="googleMap" map-id="DEMO_MAP_ID" :center="center" :zoom="15" :fullscreen-control="false"
-    :clickable-icons="false" gesture-handling="greedy" class="map" @click="onMapClick"
-    @center_changed="updateMarkerByMapCenter" @dragend="onMapDragEnd">
+  <GoogleMap ref="googleMap" map-id="DEMO_MAP_ID" :center="center" :zoom="6" :fullscreen-control="false"
+    :clickable-icons="false" gesture-handling="greedy" class="map" @click="onMapClick" @center_changed="onCenterChanged"
+    @dragend="onMapDragEnd">
 
-    <AdvancedMarker :options="{ position: markerPosition }" />
+    <AdvancedMarker :options="{ position: markerPosition, zIndex: 10 }" />
 
-    <AdvancedMarker v-for="l of locations" :options="{ position: l }" />
+    <AdvancedMarker v-for="(l, index) in locations" :key="index" :options="{ position: l }"
+      :pin-options="{ background: '#2196F3', borderColor: '#1976D2', glyphColor: 'white' }" />
 
     <CustomMarker v-if="geolocation" :options="{
       position: geolocation
@@ -33,12 +34,12 @@ import {
   AdvancedMarker,
 } from 'vue3-google-map'
 import { watchDebounced } from '@vueuse/core'
-import type { LocationUpdate } from './LocationBtn.vue'
+import type { GpsUpdate } from './GpsBtn.vue'
 import { useLocationStreaming } from '@/composition/use-location-streaming'
 
 interface Props {
   center?: { lat: number; lng: number }
-  geolocation?: LocationUpdate | null
+  geolocation?: GpsUpdate | null
   markerPosition?: { lat: number; lng: number }
 }
 
@@ -57,9 +58,15 @@ const googleMap = ref<{
   map: google.maps.Map;
 } | null>(null);
 
+/**
+ * reflects the map's current center position
+ */
 const currentMapCenter = ref(props.center);
 const markerPosition = ref(props.markerPosition)
 
+/**
+ * pans the map to the clicked position and updates the location marker
+ */
 const onMapClick = (event: google.maps.MapMouseEvent) => {
   emit('mapInteraction')
 
@@ -77,12 +84,15 @@ const onMapClick = (event: google.maps.MapMouseEvent) => {
   }
 }
 
+/**
+ * debounce updates from the map's center to the marker position
+ */
 watchDebounced(currentMapCenter, (currentMapCenterValue) => {
   markerPosition.value = currentMapCenterValue;
   emit('update:markerPosition', currentMapCenterValue)
 }, { debounce: 100, maxWait: 1000 })
 
-const updateMarkerByMapCenter = () => {
+const onCenterChanged = () => {
   const newCenter = googleMap.value?.map.getCenter();
   if (newCenter) {
     currentMapCenter.value = {

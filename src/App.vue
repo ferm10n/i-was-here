@@ -8,7 +8,7 @@
             <div style="display: flex; flex-direction: row;">
               <GoogleAddressAutocomplete style="flex: 1" :apiKey="googleMapsApiKey" v-model="placeInput"
                 @callback="onPlaceSelect" class="address-lookup" placeholder="Address lookup" />
-              <LocationBtn @location-update="onLocationUpdate" @update:is-active="onLocationTrackingActiveChanged" />
+              <GpsBtn @gpsUpdate="onGpsUpdate" @update:is-active="onGpsButtonToggle" />
             </div>
           </v-col>
           <v-col cols="12">
@@ -16,7 +16,8 @@
               v-model:marker-position="markerPosition" @map-interaction="onMapInteraction" />
           </v-col>
           <v-col cols="12">
-            <SaveLocationBtn :marker-position="markerPosition" />
+            <SaveLocationBtn :address="placeInput" :marker-position="markerPosition"
+              :gps-accuracy-meters="geolocation?.accuracy ?? null" :last-interaction="lastInteraction" />
           </v-col>
         </v-row>
       </v-container>
@@ -25,10 +26,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+// @ts-expect-error no types, too lazy to shim
 import GoogleAddressAutocomplete from 'vue3-google-address-autocomplete'
-import { metersToZoom } from './util'
-import LocationBtn, { type LocationUpdate } from './components/LocationBtn.vue'
+import { metersToZoom, type LastInteraction } from './util'
+import GpsBtn, { type GpsUpdate } from './components/GpsBtn.vue'
 import MapView from './components/MapView.vue'
 import SaveLocationBtn from './components/SaveLocationBtn.vue'
 import AppBar from './components/AppBar.vue'
@@ -38,39 +40,50 @@ const mapView = ref<InstanceType<typeof MapView> | null>(null);
 const placeInput = ref('');
 
 const center = { lat: 43.98335154739757, lng: -84.80892366670454 }
-// const initialZoom - 1;
+
 const markerPosition = ref(center)
 
 // we've already loaded the library in main.ts, but the apiKey is a required prop
 const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
-const onPlaceSelect = (event: { geometry?: { location?: google.maps.LatLng } }) => {
+const onPlaceSelect = (event: { geometry?: { location?: google.maps.LatLng; formatted_address: string } }) => {
   if (mapView.value && event.geometry?.location) {
     mapView.value.panTo(event.geometry.location);
     mapView.value.setZoom(metersToZoom(20))
+    lastInteraction.value = 'address';
+    panOnGpsUpdate.value = false;
+    placeInput.value = '';
   }
 }
 
-const geolocation = ref<LocationUpdate | null>(null);
-const autoView = ref(true);
+const geolocation = ref<GpsUpdate | null>(null);
+/**
+ * determines whether the marker should move to the GPS location when it is updated.
+ * 
+ * when GPS tracking is enabled, we should set this to true, and false when the user interacts with the map (manually or by entering an address)
+ */
+const panOnGpsUpdate = ref(true);
 
-const onLocationUpdate = (locationUpdate: LocationUpdate) => {
-  geolocation.value = locationUpdate;
+const onGpsUpdate = (gpsUpdate: GpsUpdate) => {
+  geolocation.value = gpsUpdate;
 
-  if (mapView.value && autoView.value) {
-    mapView.value.panTo({ lat: locationUpdate.lat, lng: locationUpdate.lng })
-    mapView.value.setZoom(metersToZoom(locationUpdate.accuracy))
+  if (mapView.value && panOnGpsUpdate.value) {
+    mapView.value.panTo({ lat: gpsUpdate.lat, lng: gpsUpdate.lng })
+    mapView.value.setZoom(metersToZoom(gpsUpdate.accuracy))
+    lastInteraction.value = 'gps';
   }
 }
+
+const lastInteraction = ref<LastInteraction>('pending');
 
 const onMapInteraction = () => {
-  console.log('map interaction');
-  autoView.value = false;
+  lastInteraction.value = 'manual';
+  panOnGpsUpdate.value = false; // prevent auto moving
 }
 
-const onLocationTrackingActiveChanged = () => {
-  console.log('autoView enabled')
-  autoView.value = true;
+// when the gps button is enabled, the next gps update should move the map
+const onGpsButtonToggle = (isActive: boolean) => {
+  panOnGpsUpdate.value = isActive;
 }
 </script>
 

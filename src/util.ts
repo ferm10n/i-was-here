@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import type { ApiRouter } from '../server/api/router.ts';
 import type { JwtPayload } from '../server/api/auth.ts';
+import { useLocalStorage } from '@vueuse/core';
 
 /**
  * Converts a distance in meters to an appropriate Google Maps zoom level.
@@ -93,3 +94,7 @@ export function apiRequest<
     });
   });
 }
+
+export type LastInteraction = 'pending' | 'address' | 'manual' | 'gps';
+
+export const skipConfirm = useLocalStorage('skip-location-confirm', false);

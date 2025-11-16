@@ -1,6 +1,6 @@
 <template>
   <v-btn class="ml-2" icon style="border-radius: 5px" color="blue" :disabled="!geolocationSupported"
-    @click="onLocationClick">
+    @click="onGpsBtnPress">
     <v-progress-circular v-if="isActive" indeterminate :size="30">
       <v-icon size="x-small">mdi-close</v-icon>
     </v-progress-circular>
@@ -16,14 +16,14 @@ import {
   useInterval,
 } from '@vueuse/core';
 
-export type LocationUpdate = {
+export type GpsUpdate = {
   lat: number;
   lng: number;
   accuracy: number;
 };
 
 const emit = defineEmits<{
-  (e: 'locationUpdate', locationUpdate: LocationUpdate): void;
+  (e: 'gps-update', gpsUpdate: GpsUpdate): void;
   (e: 'update:is-active', isActive: boolean): void;
 }>();
 
@@ -43,7 +43,7 @@ let getCurrentPositionFailed = false;
 function getCurrentPosition() {
   navigator.geolocation.getCurrentPosition(
     pos => {
-      emit('locationUpdate', {
+      emit('gps-update', {
         lat: pos.coords.latitude,
         lng: pos.coords.longitude,
         accuracy: pos.coords.accuracy,
@@ -60,7 +60,7 @@ function getCurrentPosition() {
   );
 }
 
-const onLocationClick = () => {
+const onGpsBtnPress = () => {
   if (isActive.value) {
     pause();
   } else {
