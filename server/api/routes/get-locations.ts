@@ -10,6 +10,7 @@ export const getLocationsEndpoint = defineEndpoint({
     minLng: z.number().optional(),
     maxLng: z.number().optional(),
   }).default({}),
+  protected: true,
   handler: async (input) => {
     // try {
 

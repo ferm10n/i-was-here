@@ -5,6 +5,7 @@ import { db } from '../../db/index.ts';
 // locations
 export const saveLocationEndpoint = defineEndpoint({
   inputSchema: locationInsertSchema,
+  protected: true,
   handler: async (input) => {
     console.log('Saving location', input);
 

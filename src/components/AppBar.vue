@@ -26,20 +26,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import SignInDialog from './SignInDialog.vue';
-import type { JwtPayload } from '../../server/api/auth.ts';
+import { currentUser } from '../util.ts';
 
 const drawer = ref(false);
-const user = ref<JwtPayload | null>(null);
-
-// Fetch user info from introspection endpoint
-fetch('/api/introspection')
-  .then((res) => res.json())
-  .then((data) => {
-    if (data && data.email) {
-      user.value = data;
-    }
-  })
-  .catch((err) => console.error('Failed to fetch user info', err));
+const user = currentUser;
 
 async function signOut() {
   try {

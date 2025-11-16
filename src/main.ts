@@ -7,6 +7,7 @@
 // Plugins
 import { registerPlugins } from './plugins/index.ts'
 import { setOptions, importLibrary } from "@googlemaps/js-api-loader";
+import { initUser } from './util.ts';
 
 // Components
 import App from './App.vue'
@@ -29,6 +30,9 @@ if (link) {
 importLibrary('maps')
   .then(() => importLibrary('places'))
   .then(() => {
+    // Initialize user authentication before mounting the app
+    initUser();
+
     const app = createApp(App);
 
     registerPlugins(app);

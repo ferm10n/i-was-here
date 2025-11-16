@@ -5,6 +5,7 @@ const textEncoder = new TextEncoder();
 
 export const watchLocationsEndpoint = defineEndpoint({
   inputSchema: null,
+  protected: true,
   handler: (_reqBody, _req, _user) => {
     let unsubscribe: (() => void) | null;
 
