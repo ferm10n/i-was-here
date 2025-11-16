@@ -6,6 +6,7 @@ import { saveLocationEndpoint } from './routes/save-location.ts';
 import { watchLocationsEndpoint } from './routes/watch-locations.ts';
 import { getLocationsEndpoint } from './routes/get-locations.ts';
 import { googleAuthCallbackEndpoint } from './routes/google-auth-cb.ts';
+import { signoutEndpoint } from './routes/signout.ts';
 
 export const router = {
   '/api/hello': helloEndpoint,
@@ -14,6 +15,7 @@ export const router = {
   '/api/watch-locations': watchLocationsEndpoint,
   '/api/get-locations': getLocationsEndpoint,
   '/api/oauth/google-callback': googleAuthCallbackEndpoint,
+  '/api/signout': signoutEndpoint,
 } satisfies {
   [path: string]: ApiEndpointDef<any, any>;
 };

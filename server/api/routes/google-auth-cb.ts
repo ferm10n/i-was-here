@@ -16,7 +16,6 @@ export const googleAuthCallbackEndpoint = defineEndpoint({
         headers: { 'content-type': 'text/plain' },
       });
     }
-    console.log('Received authorization code:', code);
 
     const response = await fetch(env.GOOGLE_OAUTH_ACCESS_TOKEN_URL, {
       method: "POST",
@@ -40,10 +39,15 @@ export const googleAuthCallbackEndpoint = defineEndpoint({
     const payload = ticket.getPayload() as {
       email: string;
       name: string;
+      picture?: string;
     };
 
     // Create JWT token with user payload
-    const jwt = signJwt({ email: payload.email, name: payload.name });
+    const jwt = signJwt({
+      email: payload.email,
+      name: payload.name,
+      picture: payload.picture
+    });
 
     // Create response with cookie
     const headers = new Headers({

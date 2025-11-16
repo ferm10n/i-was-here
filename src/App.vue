@@ -1,7 +1,7 @@
 <template>
   <v-app>
+    <AppBar />
     <v-main>
-      <SignInDialog />
       <v-container class="fill-height px-8" max-width="400">
         <v-row dense>
           <v-col cols="12">
@@ -31,6 +31,7 @@ import { metersToZoom } from './util'
 import LocationBtn, { type LocationUpdate } from './components/LocationBtn.vue'
 import MapView from './components/MapView.vue'
 import SaveLocationBtn from './components/SaveLocationBtn.vue'
+import AppBar from './components/AppBar.vue'
 
 const mapView = ref<InstanceType<typeof MapView> | null>(null);
 

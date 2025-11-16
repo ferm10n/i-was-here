@@ -7,6 +7,7 @@ export const COOKIE = 'jwt';
 export type JwtPayload = {
   email: string;
   name: string;
+  picture?: string;
 };
 
 export function signJwt(payload: JwtPayload): string {
