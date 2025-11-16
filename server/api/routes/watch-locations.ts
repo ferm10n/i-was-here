@@ -1,13 +1,11 @@
-import * as z from "@zod/zod/v4";
+import * as z from 'zod/v4';
 import { defineEndpoint, locations$ } from '../util.ts';
-import { locationInsertSchema, locations } from '../../db/schema.ts';
-import { db } from '../../db/index.ts';
 
 const textEncoder = new TextEncoder();
 
 export const watchLocationsEndpoint = defineEndpoint({
   inputSchema: null,
-  handler: (reqBody, req) => {
+  handler: (_reqBody, _req, _user) => {
     let unsubscribe: (() => void) | null;
 
     const body = new ReadableStream({
@@ -23,12 +21,12 @@ export const watchLocationsEndpoint = defineEndpoint({
       }
     });
 
-    return new Response(body, {
+    return Promise.resolve(new Response(body, {
       headers: {
         "Content-Type": "text/event-stream",
         "Cache-Control": "no-cache",
         "Connection": "keep-alive",
       },
-    });
+    }));
   },
 });

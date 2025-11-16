@@ -1,4 +1,3 @@
-import * as z from "@zod/zod/v4";
 import { defineEndpoint, locations$ } from '../util.ts';
 import { locationInsertSchema, locations } from '../../db/schema.ts';
 import { db } from '../../db/index.ts';

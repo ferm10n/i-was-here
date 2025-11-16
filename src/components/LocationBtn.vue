@@ -10,7 +10,6 @@
 
 <script setup lang="ts">
 import {
-  defineEmits,
   watch,
 } from 'vue';
 import {

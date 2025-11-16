@@ -2,6 +2,7 @@
 import { serveDir } from '@std/http/file-server';
 import { parseOrDie, WideApiEndpointDef } from './api/util.ts';
 import { router } from './api/router.ts';
+import { decodeJwt } from './api/auth.ts';
 import { env } from './api/env.ts';
 
 const wideRouter = router as Record<string, WideApiEndpointDef>;
@@ -18,8 +19,12 @@ Deno.serve({
     if (apiEndpoint) {
       let body: unknown = null;
 
+      const user = decodeJwt(req);
+
       if (apiEndpoint.protected) {
-        // TODO check cookie or something
+        if (!user) {
+          return new Response('Unauthorized', { status: 401 });
+        }
       }
 
       // validate input if needed
@@ -34,7 +39,7 @@ Deno.serve({
       }
 
       // get a response
-      const handlerResult = await apiEndpoint.handler(body, req);
+      const handlerResult = await apiEndpoint.handler(body, req, user);
 
       // return the response depending on the result type
       if (handlerResult instanceof Response) {

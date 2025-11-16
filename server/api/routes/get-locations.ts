@@ -1,6 +1,6 @@
-import * as z from "@zod/zod/v4";
-import { defineEndpoint, locations$ } from '../util.ts';
-import { locationInsertSchema, locations } from '../../db/schema.ts';
+import * as z from 'zod/v4';
+import { defineEndpoint } from '../util.ts';
+import { locations } from '../../db/schema.ts';
 import { db } from '../../db/index.ts';
 
 export const getLocationsEndpoint = defineEndpoint({

@@ -1,19 +1,20 @@
-import * as z from "@zod/zod/v4";
+import * as z from 'zod/v4';
 import { Subject } from 'rxjs';
 import { Location } from '../db/schema.ts';
+import { JwtPayload } from './auth.ts';
 
 export type EndpointOutput = string | Response | Record<string, unknown>;
 
 export type ApiEndpointDef<INPUT extends null | z.ZodType, OUTPUT extends EndpointOutput> = {
   inputSchema: INPUT;
   protected?: boolean;
-  handler: (reqBody: z.infer<INPUT>, req: Request) => Promise<OUTPUT>;
+  handler: (reqBody: z.infer<INPUT>, req: Request, user: JwtPayload | null) => Promise<OUTPUT>;
 };
 
 export type WideApiEndpointDef = {
   inputSchema: null | z.ZodType;
   protected?: boolean;
-  handler: (reqBody: unknown, req: Request) => Promise<EndpointOutput>;
+  handler: (reqBody: unknown, req: Request, user: JwtPayload | null) => Promise<EndpointOutput>;
 }
 
 export function defineEndpoint<INPUT extends z.ZodType | null, OUTPUT extends EndpointOutput>(

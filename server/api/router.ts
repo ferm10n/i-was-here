@@ -1,4 +1,4 @@
-import * as z from "@zod/zod/v4";
+import * as z from 'zod/v4';
 import { ApiEndpointDef } from './util.ts';
 import { helloEndpoint } from './routes/hello.ts';
 import { introspectionEndpoint } from './routes/introspection.ts';

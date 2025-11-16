@@ -13,22 +13,22 @@
     "jsr:@std/net@^1.0.6": "1.0.6",
     "jsr:@std/path@^1.1.2": "1.1.2",
     "jsr:@std/streams@^1.0.13": "1.0.13",
-    "jsr:@zod/zod@^4.1.12": "4.1.12",
     "npm:@deno/vite-plugin@^1.0.5": "1.0.5_vite@7.2.2__@types+node@22.19.0__sass-embedded@1.93.3__picomatch@4.0.3_@types+node@22.19.0_sass-embedded@1.93.3",
     "npm:@googlemaps/js-api-loader@^2.0.2": "2.0.2",
     "npm:@mdi/font@7.4.47": "7.4.47",
     "npm:@neondatabase/serverless@^1.0.2": "1.0.2",
     "npm:@tsconfig/node22@^22.0.2": "22.0.2",
     "npm:@types/google.maps@^3.58.1": "3.58.1",
+    "npm:@types/jsonwebtoken@^9.0.10": "9.0.10",
     "npm:@types/node@^22.19.0": "22.19.0",
     "npm:@vitejs/plugin-vue@^6.0.1": "6.0.1_vite@7.2.2__@types+node@22.19.0__sass-embedded@1.93.3__picomatch@4.0.3_vue@3.5.24__typescript@5.9.3_@types+node@22.19.0_sass-embedded@1.93.3_typescript@5.9.3",
     "npm:@vue/tsconfig@~0.8.1": "0.8.1_typescript@5.9.3_vue@3.5.24__typescript@5.9.3",
     "npm:@vueuse/core@14": "14.0.0_vue@3.5.24__typescript@5.9.3_typescript@5.9.3",
-    "npm:drizzle-kit@*": "0.31.6_esbuild@0.25.12",
     "npm:drizzle-kit@~0.31.6": "0.31.6_esbuild@0.25.12",
     "npm:drizzle-orm@~0.44.7": "0.44.7_@neondatabase+serverless@1.0.2",
     "npm:drizzle-zod@0.8.2": "0.8.2_drizzle-orm@0.44.7__@neondatabase+serverless@1.0.2_zod@3.25.76_@neondatabase+serverless@1.0.2",
     "npm:google-auth-library@^10.5.0": "10.5.0",
+    "npm:jsonwebtoken@^9.0.2": "9.0.2",
     "npm:npm-run-all2@^8.0.4": "8.0.4",
     "npm:rxjs@^7.8.2": "7.8.2",
     "npm:sass-embedded@^1.93.3": "1.93.3",
@@ -41,7 +41,8 @@
     "npm:vue3-google-address-autocomplete@^1.1.3": "1.1.3_vue@3.5.24__typescript@5.9.3_typescript@5.9.3",
     "npm:vue3-google-map@~0.25.1": "0.25.1_vue@3.5.24__typescript@5.9.3_typescript@5.9.3",
     "npm:vue@^3.5.24": "3.5.24_typescript@5.9.3",
-    "npm:vuetify@^3.10.9": "3.10.9_typescript@5.9.3_vite-plugin-vuetify@2.1.2__vite@7.2.2___@types+node@22.19.0___sass-embedded@1.93.3___picomatch@4.0.3__vue@3.5.24___typescript@5.9.3__vuetify@3.10.9__@types+node@22.19.0__sass-embedded@1.93.3__typescript@5.9.3_vue@3.5.24__typescript@5.9.3_vite@7.2.2__@types+node@22.19.0__sass-embedded@1.93.3__picomatch@4.0.3_@types+node@22.19.0_sass-embedded@1.93.3"
+    "npm:vuetify@^3.10.9": "3.10.9_typescript@5.9.3_vite-plugin-vuetify@2.1.2__vite@7.2.2___@types+node@22.19.0___sass-embedded@1.93.3___picomatch@4.0.3__vue@3.5.24___typescript@5.9.3__vuetify@3.10.9__@types+node@22.19.0__sass-embedded@1.93.3__typescript@5.9.3_vue@3.5.24__typescript@5.9.3_vite@7.2.2__@types+node@22.19.0__sass-embedded@1.93.3__picomatch@4.0.3_@types+node@22.19.0_sass-embedded@1.93.3",
+    "npm:zod@^3.25.76": "3.25.76"
   },
   "jsr": {
     "@std/cli@1.0.23": {
@@ -93,9 +94,6 @@
     },
     "@std/streams@1.0.13": {
       "integrity": "772d208cd0d3e5dac7c1d9e6cdb25842846d136eea4a41a62e44ed4ab0c8dd9e"
-    },
-    "@zod/zod@4.1.12": {
-      "integrity": "5876ed4c6d44673faf5120f0a461a2ada2eb6c735329d3ebaf5ba1fc08387695"
     }
   },
   "npm": {
@@ -406,7 +404,7 @@
       "dependencies": [
         "string-width@5.1.2",
         "string-width-cjs@npm:string-width@4.2.3",
-        "strip-ansi@7.1.0",
+        "strip-ansi@7.1.2",
         "strip-ansi-cjs@npm:strip-ansi@6.0.1",
         "wrap-ansi@8.1.0",
         "wrap-ansi-cjs@npm:wrap-ansi@7.0.0"
@@ -667,6 +665,16 @@
     "@types/google.maps@3.58.1": {
       "integrity": "sha512-X9QTSvGJ0nCfMzYOnaVs/k6/4L+7F5uCS+4iUmkLEls6J9S/Phv+m/i3mDeyc49ZBgwab3EFO1HEoBY7k98EGQ=="
     },
+    "@types/jsonwebtoken@9.0.10": {
+      "integrity": "sha512-asx5hIG9Qmf/1oStypjanR7iKTv0gXQ1Ov/jfrX6kS/EO0OFni8orbmGCn0672NHR3kXHwpAwR+B368ZGN/2rA==",
+      "dependencies": [
+        "@types/ms",
+        "@types/node@24.2.0"
+      ]
+    },
+    "@types/ms@2.1.0": {
+      "integrity": "sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA=="
+    },
     "@types/node@22.19.0": {
       "integrity": "sha512-xpr/lmLPQEj+TUnHmR+Ab91/glhJvsqcjB+yY0Ix9GO70H6Lb4FHH5GeqdOE5btAx7eIMwuHkp4H2MSkLcqWbA==",
       "dependencies": [
@@ -852,14 +860,14 @@
     "agent-base@7.1.4": {
       "integrity": "sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ=="
     },
-    "alien-signals@3.0.6": {
-      "integrity": "sha512-gCs0YqC1mkYGC6IRXsSrA62ShOSv1FlVN5tRp/Cs2vRWLK/BAeluWIdfsl253pFQPznKEvRmHhfep7crWfyfWQ=="
+    "alien-signals@3.1.0": {
+      "integrity": "sha512-yufC6VpSy8tK3I0lO67pjumo5JvDQVQyr38+3OHqe6CHl1t2VZekKZ7EKKZSqk0cRmE7U7tfZbpXiKNzuc+ckg=="
     },
     "ansi-regex@5.0.1": {
       "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ=="
     },
-    "ansi-regex@6.1.0": {
-      "integrity": "sha512-7HSX4QQb4CspciLpVFwyRe79O3xsIZDDLER21kERQ71oaPodF8jL725AgJMFAYbooIqolJoRLuM81SpeUkpkvA=="
+    "ansi-regex@6.2.2": {
+      "integrity": "sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg=="
     },
     "ansi-styles@4.3.0": {
       "integrity": "sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==",
@@ -1089,8 +1097,8 @@
     "estree-walker@2.0.2": {
       "integrity": "sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w=="
     },
-    "exsolve@1.0.7": {
-      "integrity": "sha512-VO5fQUzZtI6C+vx4w/4BWJpg3s/5l+6pRQEHzFRM8WFi4XffSP1Z+4qi7GbjWbvRQEbdIco5mIMq+zX4rPuLrw=="
+    "exsolve@1.0.8": {
+      "integrity": "sha512-LmDxfWXwcTArk8fUEnOfSZpHOJ6zOMUJKOtFLFqJLoKJetuQG874Uc7/Kki7zFLzYybmZhp1M7+98pfMqeX8yA=="
     },
     "extend@3.0.2": {
       "integrity": "sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g=="
@@ -1191,7 +1199,7 @@
         "gcp-metadata",
         "google-logging-utils",
         "gtoken",
-        "jws"
+        "jws@4.0.0"
       ]
     },
     "google-logging-utils@1.1.3": {
@@ -1201,7 +1209,7 @@
       "integrity": "sha512-+CqsMbHPiSTdtSO14O51eMNlrp9N79gmeqmXeouJOhfucAedHw9noVe/n5uJk3tbKE6a+6ZCQg3RPhVhHByAIw==",
       "dependencies": [
         "gaxios",
-        "jws"
+        "jws@4.0.0"
       ]
     },
     "has-flag@4.0.0": {
@@ -1262,6 +1270,29 @@
     "json-parse-even-better-errors@4.0.0": {
       "integrity": "sha512-lR4MXjGNgkJc7tkQ97kb2nuEMnNCyU//XYVH0MKTGcXEiSudQ5MKGKen3C5QubYy0vmq+JGitUg92uuywGEwIA=="
     },
+    "jsonwebtoken@9.0.2": {
+      "integrity": "sha512-PRp66vJ865SSqOlgqS8hujT5U4AOgMfhrwYIuIhfKaoSCZcirrmASQr8CX7cUg+RMih+hgznrjp99o+W4pJLHQ==",
+      "dependencies": [
+        "jws@3.2.2",
+        "lodash.includes",
+        "lodash.isboolean",
+        "lodash.isinteger",
+        "lodash.isnumber",
+        "lodash.isplainobject",
+        "lodash.isstring",
+        "lodash.once",
+        "ms",
+        "semver"
+      ]
+    },
+    "jwa@1.4.2": {
+      "integrity": "sha512-eeH5JO+21J78qMvTIDdBXidBd6nG2kZjg5Ohz/1fpa28Z4CcsWUzJ1ZZyFq/3z3N17aZy+ZuBoHljASbL1WfOw==",
+      "dependencies": [
+        "buffer-equal-constant-time",
+        "ecdsa-sig-formatter",
+        "safe-buffer"
+      ]
+    },
     "jwa@2.0.1": {
       "integrity": "sha512-hRF04fqJIP8Abbkq5NKGN0Bbr3JxlQ+qhZufXVr0DvujKy93ZCbXZMHDL4EOtodSbCWxOqR8MS1tXA5hwqCXDg==",
       "dependencies": [
@@ -1270,10 +1301,17 @@
         "safe-buffer"
       ]
     },
+    "jws@3.2.2": {
+      "integrity": "sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==",
+      "dependencies": [
+        "jwa@1.4.2",
+        "safe-buffer"
+      ]
+    },
     "jws@4.0.0": {
       "integrity": "sha512-KDncfTmOZoOMTFG4mBlG0qUIOlc03fmzH+ru6RgYVZhPkyiy/92Owlt/8UEN+a4TXR1FQetfIpJE8ApdvdVxTg==",
       "dependencies": [
-        "jwa",
+        "jwa@2.0.1",
         "safe-buffer"
       ]
     },
@@ -1287,6 +1325,27 @@
         "pkg-types@2.3.0",
         "quansync"
       ]
+    },
+    "lodash.includes@4.3.0": {
+      "integrity": "sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w=="
+    },
+    "lodash.isboolean@3.0.3": {
+      "integrity": "sha512-Bz5mupy2SVbPHURB98VAcw+aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg=="
+    },
+    "lodash.isinteger@4.0.4": {
+      "integrity": "sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA=="
+    },
+    "lodash.isnumber@3.0.3": {
+      "integrity": "sha512-QYqzpfwO3/CWf3XP+Z+tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk+NXmTBcc97zw9t1FQrw=="
+    },
+    "lodash.isplainobject@4.0.6": {
+      "integrity": "sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA=="
+    },
+    "lodash.isstring@4.0.1": {
+      "integrity": "sha512-0wJxfxH1wgO3GrbuP+dTTk7op+6L41QCXbGINEmD+ny/G/eCqGzxyCsh7159S+mgDDcoarnBw6PC1PS5+wUGgw=="
+    },
+    "lodash.once@4.1.1": {
+      "integrity": "sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg=="
     },
     "lru-cache@10.4.3": {
       "integrity": "sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ=="
@@ -1667,6 +1726,10 @@
       ],
       "bin": true
     },
+    "semver@7.7.3": {
+      "integrity": "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==",
+      "bin": true
+    },
     "shebang-command@2.0.0": {
       "integrity": "sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==",
       "dependencies": [
@@ -1708,7 +1771,7 @@
       "dependencies": [
         "eastasianwidth",
         "emoji-regex@9.2.2",
-        "strip-ansi@7.1.0"
+        "strip-ansi@7.1.2"
       ]
     },
     "strip-ansi@6.0.1": {
@@ -1717,10 +1780,10 @@
         "ansi-regex@5.0.1"
       ]
     },
-    "strip-ansi@7.1.0": {
-      "integrity": "sha512-iq6eVVI64nQQTRYq2KtEg2d2uU7LElhTJwsH4YzIHZshxlgZms/wIc4VoDQTlG/IvVIrBKG06CrZnp0qv7hkcQ==",
+    "strip-ansi@7.1.2": {
+      "integrity": "sha512-gmBGslpoQJtgnMAvOVqGZpEz9dyoKTCzy2nfz/n8aIFhN/jCE/rCmcxabB6jOOHV+0WNnylOxaxBQPSvcWklhA==",
       "dependencies": [
-        "ansi-regex@6.1.0"
+        "ansi-regex@6.2.2"
       ]
     },
     "supercluster@8.0.1": {
@@ -1927,7 +1990,7 @@
       "dependencies": [
         "ansi-styles@6.2.3",
         "string-width@5.1.2",
-        "strip-ansi@7.1.0"
+        "strip-ansi@7.1.2"
       ]
     },
     "xtend@4.0.2": {
@@ -1941,13 +2004,13 @@
     "dependencies": [
       "jsr:@std/dotenv@~0.225.5",
       "jsr:@std/http@^1.0.21",
-      "jsr:@zod/zod@^4.1.12",
       "npm:@deno/vite-plugin@^1.0.5",
       "npm:@googlemaps/js-api-loader@^2.0.2",
       "npm:@mdi/font@7.4.47",
       "npm:@neondatabase/serverless@^1.0.2",
       "npm:@tsconfig/node22@^22.0.2",
       "npm:@types/google.maps@^3.58.1",
+      "npm:@types/jsonwebtoken@^9.0.10",
       "npm:@types/node@^22.19.0",
       "npm:@vitejs/plugin-vue@^6.0.1",
       "npm:@vue/tsconfig@~0.8.1",
@@ -1956,6 +2019,7 @@
       "npm:drizzle-orm@~0.44.7",
       "npm:drizzle-zod@0.8.2",
       "npm:google-auth-library@^10.5.0",
+      "npm:jsonwebtoken@^9.0.2",
       "npm:npm-run-all2@^8.0.4",
       "npm:rxjs@^7.8.2",
       "npm:sass-embedded@^1.93.3",
@@ -1967,7 +2031,8 @@
       "npm:vue3-google-address-autocomplete@^1.1.3",
       "npm:vue3-google-map@~0.25.1",
       "npm:vue@^3.5.24",
-      "npm:vuetify@^3.10.9"
+      "npm:vuetify@^3.10.9",
+      "npm:zod@^3.25.76"
     ]
   }
 }
