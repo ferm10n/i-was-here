@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <AppBar />
-    <v-main>
+    <v-main class="d-flex flex-column">
       <v-dialog v-model="testingNoticeDialog" max-width="500" persistent>
         <v-card>
           <v-card-title>Testing Phase</v-card-title>
@@ -16,24 +16,20 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-container class="fill-height px-8" max-width="400">
-        <v-row dense>
-          <v-col cols="12">
-            <div style="display: flex; flex-direction: row;">
-              <GoogleAddressAutocomplete style="flex: 1" :apiKey="googleMapsApiKey" v-model="placeInput"
-                @callback="onPlaceSelect" class="address-lookup" placeholder="Address lookup" />
-              <GpsBtn @gpsUpdate="onGpsUpdate" @update:is-active="onGpsButtonToggle" />
-            </div>
-          </v-col>
-          <v-col cols="12">
-            <MapView style="width: 100%; height: 500px" ref="mapView" :center="center" :geolocation="geolocation"
-              v-model:marker-position="markerPosition" @map-interaction="onMapInteraction" />
-          </v-col>
-          <v-col cols="12">
-            <SaveLocationBtn :address="placeInput" :marker-position="markerPosition"
-              :gps-accuracy-meters="geolocation?.accuracy ?? null" :last-interaction="lastInteraction" />
-          </v-col>
-        </v-row>
+      <v-container class="flex-grow-1 d-flex flex-column px-8 py-4">
+        <div style="display: flex; flex-direction: row; margin-bottom: 8px;">
+          <GoogleAddressAutocomplete style="flex: 1" :apiKey="googleMapsApiKey" v-model="placeInput"
+            @callback="onPlaceSelect" class="address-lookup" placeholder="Address lookup" />
+          <GpsBtn @gpsUpdate="onGpsUpdate" @update:is-active="onGpsButtonToggle" />
+        </div>
+
+        <MapView style="width: 100%; flex: 1; min-height: 300px;" ref="mapView" :center="center"
+          :geolocation="geolocation" v-model:marker-position="markerPosition" @map-interaction="onMapInteraction" />
+
+        <div style="margin-top: 8px;">
+          <SaveLocationBtn :address="placeInput" :marker-position="markerPosition"
+            :gps-accuracy-meters="geolocation?.accuracy ?? null" :last-interaction="lastInteraction" />
+        </div>
       </v-container>
     </v-main>
   </v-app>

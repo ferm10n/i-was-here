@@ -9,7 +9,7 @@
       background: '#FF9800',
       borderColor: '#F57C00',
       glyphColor: 'white',
-      glyph: l.count?.toString() || '',
+      glyphText: l.count?.toString() || '',
       scale: 1.3
     } : {
       background: '#2196F3',
