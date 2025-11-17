@@ -9,31 +9,59 @@ interface Bounds {
   maxLat: number;
   minLng: number;
   maxLng: number;
+  zoom?: number;
+}
+
+interface Location {
+  id: number | string;
+  lat: number;
+  lng: number;
+  count?: number;
+  isCluster?: boolean;
 }
 
 export function useLocationStreaming(bounds?: Ref<Bounds | null>) {
   let source: EventSource | null;
-  const locations = reactive<{ id: number; lat: number; lng: number; }[]>([]);
+  const clusterMarkers = reactive<Location[]>([]);
+  const individualMarkers = reactive<Location[]>([]);
+  const locations = reactive<Location[]>([]);
   let retryTimeout: number | null = null;
   let isUnmounted = false;
 
   const fetchLocations = async () => {
-    const boundsValue = bounds?.value;
-    const params = boundsValue ? {
-      minLat: boundsValue.minLat,
-      maxLat: boundsValue.maxLat,
-      minLng: boundsValue.minLng,
-      maxLng: boundsValue.maxLng,
-    } : {};
+    if (!bounds?.value) return;
+
+    const boundsValue = bounds.value;
+    const params = {
+      bounds: {
+        minLat: boundsValue.minLat,
+        maxLat: boundsValue.maxLat,
+        minLng: boundsValue.minLng,
+        maxLng: boundsValue.maxLng,
+      },
+      zoom: boundsValue.zoom,
+    };
 
     await apiRequest('/api/get-locations', params).then(({ locations: existingLocations }) => {
-      // Add new locations, avoiding duplicates based on id
+      // Clear cluster markers on every fetch
+      clusterMarkers.splice(0, clusterMarkers.length);
+
       for (const newLoc of existingLocations) {
-        const exists = locations.some(loc => loc.id === newLoc.id);
-        if (!exists) {
-          locations.push(newLoc);
+        if (newLoc.isCluster) {
+          // Add to cluster markers (always fresh)
+          clusterMarkers.push(newLoc);
+        } else {
+          // Add to individual markers, avoiding duplicates
+          const exists = individualMarkers.some(loc => loc.id === newLoc.id);
+          if (!exists) {
+            individualMarkers.push(newLoc);
+          }
         }
       }
+
+      // Update the combined locations array - show only one type at a time
+      // Show clusters if we have any, otherwise show individual markers
+      locations.splice(0, locations.length, ...(clusterMarkers.length > 0 ? clusterMarkers : individualMarkers));
     });
   };
 
@@ -44,7 +72,14 @@ export function useLocationStreaming(bounds?: Ref<Bounds | null>) {
 
     source.onmessage = e => {
       const newLocation = JSON.parse(e.data);
-      locations.push(newLocation);
+      // Only add real locations from EventSource, not clusters
+      if (!newLocation.isCluster) {
+        const exists = individualMarkers.some(loc => loc.id === newLocation.id);
+        if (!exists) {
+          individualMarkers.push(newLocation);
+          locations.push(newLocation);
+        }
+      }
     };
 
     source.onerror = () => {

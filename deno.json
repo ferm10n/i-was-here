@@ -53,6 +53,7 @@
     "drizzle-zod": "npm:drizzle-zod@0.8.2",
     "google-auth-library": "npm:google-auth-library@^10.5.0",
     "jsonwebtoken": "npm:jsonwebtoken@^9.0.2",
+    "ngeohash": "npm:ngeohash@^0.6.3",
     "npm-run-all2": "npm:npm-run-all2@^8.0.4",
     "rxjs": "npm:rxjs@^7.8.2",
     "sass-embedded": "npm:sass-embedded@^1.93.3",

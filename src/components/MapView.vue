@@ -5,8 +5,26 @@
 
     <AdvancedMarker :options="{ position: markerPosition, zIndex: 10 }" />
 
-    <AdvancedMarker v-for="(l, index) in locations" :key="index" :options="{ position: l }"
-      :pin-options="{ background: '#2196F3', borderColor: '#1976D2', glyphColor: 'white' }" />
+    <AdvancedMarker v-for="l in locations" :key="l.id" :options="{ position: l }" :pin-options="l.isCluster ? {
+      background: '#FF9800',
+      borderColor: '#F57C00',
+      glyphColor: 'white',
+      glyph: l.count?.toString() || '',
+      scale: 1.3
+    } : {
+      background: '#2196F3',
+      borderColor: '#1976D2',
+      glyphColor: 'white'
+    }" />
+
+    <Circle v-for="l in locations.filter(l => l.isCluster && l.bounds)" :key="`bounds-${l.id}`" :options="{
+      center: l,
+      fillColor: '#FF9800',
+      strokeColor: '#F57C00',
+      strokeWeight: 1,
+      radius: calculateClusterRadius(l.bounds),
+      fillOpacity: .15,
+    }" />
 
     <CustomMarker v-if="geolocation" :options="{
       position: geolocation
@@ -128,11 +146,13 @@ const mapBounds = ref<{
   maxLat: number;
   minLng: number;
   maxLng: number;
+  zoom: number;
 } | null>(null);
 
 const updateBounds = () => {
   const bounds = googleMap.value?.map.getBounds();
-  if (bounds) {
+  const zoom = googleMap.value?.map.getZoom();
+  if (bounds && zoom !== undefined) {
     const ne = bounds.getNorthEast();
     const sw = bounds.getSouthWest();
     mapBounds.value = {
@@ -140,6 +160,7 @@ const updateBounds = () => {
       maxLat: ne.lat(),
       minLng: sw.lng(),
       maxLng: ne.lng(),
+      zoom,
     };
   }
 };
@@ -151,6 +172,32 @@ onMounted(() => {
   // Initial bounds calculation after map loads
   setTimeout(updateBounds, 1000);
 });
+
+/**
+ * Calculate the radius in meters for a cluster bounds circle
+ * Uses Haversine formula for great-circle distance
+ */
+const calculateClusterRadius = (bounds?: { minLat: number; maxLat: number; minLng: number; maxLng: number }) => {
+  if (!bounds) return 0;
+
+  // Calculate the distance from center to corner using Haversine formula
+  const centerLat = (bounds.minLat + bounds.maxLat) / 2;
+  const centerLng = (bounds.minLng + bounds.maxLng) / 2;
+
+  // Use the northeast corner for radius calculation
+  const lat1 = centerLat * Math.PI / 180;
+  const lat2 = bounds.maxLat * Math.PI / 180;
+  const dLat = (bounds.maxLat - centerLat) * Math.PI / 180;
+  const dLng = (bounds.maxLng - centerLng) * Math.PI / 180;
+
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1) * Math.cos(lat2) *
+    Math.sin(dLng / 2) * Math.sin(dLng / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const earthRadius = 6371000; // Earth's radius in meters
+
+  return earthRadius * c;
+};
 
 const { locations } = useLocationStreaming(mapBounds);
 </script>
