@@ -2,20 +2,6 @@
   <v-app>
     <AppBar />
     <v-main class="d-flex flex-column">
-      <v-dialog v-model="testingNoticeDialog" max-width="500" persistent>
-        <v-card>
-          <v-card-title>Testing Phase</v-card-title>
-          <v-card-text>
-            This app is currently in testing phase. Any markers you create may be deleted without notice.
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn color="primary" @click="testingNoticeDialog = false" block>
-              I Understand
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
       <v-container class="flex-grow-1 d-flex flex-column px-8 py-4">
         <div style="display: flex; flex-direction: row; margin-bottom: 8px;">
           <GoogleAddressAutocomplete style="flex: 1" :apiKey="googleMapsApiKey" v-model="placeInput"
@@ -45,21 +31,6 @@ import MapView from './components/MapView.vue'
 import SaveLocationBtn from './components/SaveLocationBtn.vue'
 import AppBar from './components/AppBar.vue'
 import { useLocalStorage } from '@vueuse/core'
-
-const testingNoticeDialog = ref(true);
-const hasSeenTestingNotice = useLocalStorage('hasSeenTestingNotice', false);
-
-// Don't show dialog if user has already seen it
-if (hasSeenTestingNotice.value) {
-  testingNoticeDialog.value = false;
-}
-
-// Mark as seen when dialog is closed
-watch(testingNoticeDialog, (value) => {
-  if (!value) {
-    hasSeenTestingNotice.value = true;
-  }
-});
 
 const mapView = ref<InstanceType<typeof MapView> | null>(null);
 
