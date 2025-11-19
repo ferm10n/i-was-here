@@ -3,6 +3,8 @@
     <SignInDialog v-if="!user" />
     <v-app-bar color="primary" prominent>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-spacer />
+      <v-btn v-if="helpUrl" text="HELP" :href="helpUrl" target="_blank" />
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" temporary>
@@ -29,6 +31,7 @@ import { currentUser, skipConfirm } from '../util.ts';
 
 const drawer = ref(false);
 const user = currentUser;
+const helpUrl = import.meta.env.VITE_HELP_URL || '';
 
 async function signOut() {
   skipConfirm.value = false;
