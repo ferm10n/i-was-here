@@ -46,8 +46,8 @@ export function initUser(): Promise<void> {
   userLoadedPromise = fetch('/api/introspection')
     .then((res) => res.json())
     .then((data) => {
-      if (data && data.email) {
-        currentUser.value = data;
+      if (data?.user?.email) {
+        currentUser.value = data.user;
       }
     })
     .catch((err) => {
