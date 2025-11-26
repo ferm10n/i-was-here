@@ -4,11 +4,12 @@ const requiredEnv = {
   VITE_GOOGLE_OAUTH_CLIENT_ID: true,
   GOOGLE_OAUTH_CLIENT_SECRET: true,
   GOOGLE_OAUTH_ACCESS_TOKEN_URL: true,
-  VITE_GOOGLE_OAUTH_REDIRECT_URI: true,
+  GOOGLE_OAUTH_REDIRECT_ORIGIN: false,
   DATABASE_URL: true,
   PORT: false,
   DENO_DEPLOY_BUILD_ID: false,
-  DENO_DEPLOYMENT_ID: false,
+  DENO_DEPLOY_APP_SLUG: false,
+  DENO_DEPLOY_ORG_SLUG: false,
 };
 export const env = {} as Record<keyof typeof requiredEnv, string>;
 

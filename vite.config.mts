@@ -11,8 +11,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 const requiredEnvVars: string[] = [
   'VITE_GOOGLE_MAPS_API_KEY',
-  'VITE_GOOGLE_OAUTH_CLIENT_ID',
-  'VITE_GOOGLE_OAUTH_REDIRECT_URI'
+  'VITE_GOOGLE_OAUTH_CLIENT_ID'
 ];
 for (const requiredEnvVar of requiredEnvVars) {
   if (!process.env[requiredEnvVar]) {

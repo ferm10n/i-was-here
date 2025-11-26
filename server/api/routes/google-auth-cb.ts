@@ -3,6 +3,7 @@ import { defineEndpoint } from '../util.ts';
 import { OAuth2Client } from 'google-auth-library';
 import * as cookie from "@std/http/cookie";
 import { COOKIE, signJwt } from '../auth.ts';
+import { GOOGLE_OAUTH_REDIRECT_PATH } from '../../../src/consts.ts';
 
 const client = new OAuth2Client();
 export const googleAuthCallbackEndpoint = defineEndpoint({
@@ -17,13 +18,17 @@ export const googleAuthCallbackEndpoint = defineEndpoint({
       });
     }
 
+    const redirectUri = (env.DENO_DEPLOY_APP_SLUG && env.DENO_DEPLOY_BUILD_ID && env.DENO_DEPLOY_ORG_SLUG)
+      ? `https://${env.DENO_DEPLOY_APP_SLUG}-${env.DENO_DEPLOY_BUILD_ID}.${env.DENO_DEPLOY_ORG_SLUG}.deno.net${GOOGLE_OAUTH_REDIRECT_PATH}`
+      : `${env.GOOGLE_OAUTH_REDIRECT_ORIGIN}${GOOGLE_OAUTH_REDIRECT_PATH}`
+
     const response = await fetch(env.GOOGLE_OAUTH_ACCESS_TOKEN_URL, {
       method: "POST",
       body: JSON.stringify({
         code,
         client_id: env.VITE_GOOGLE_OAUTH_CLIENT_ID,
         client_secret: env.GOOGLE_OAUTH_CLIENT_SECRET,
-        redirect_uri: env.VITE_GOOGLE_OAUTH_REDIRECT_URI,
+        redirect_uri: redirectUri,
         grant_type: 'authorization_code',
       }),
     });
