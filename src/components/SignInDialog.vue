@@ -22,8 +22,10 @@ import {
 } from '../util.ts';
 import { ref, watch } from 'vue';
 
-const redirectUri = `${window.location.origin}${GOOGLE_OAUTH_REDIRECT_PATH}`;
-const googleSignInLink = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile&prompt=select_account`
+const redirectUri = `${import.meta.env.VITE_GOOGLE_OAUTH_REDIRECT_ORIGIN}${GOOGLE_OAUTH_REDIRECT_PATH}`;
+const trueRedirectUri = `${window.location.origin}${GOOGLE_OAUTH_REDIRECT_PATH}`;
+const oauthState = JSON.stringify({ trueRedirectUri });
+const googleSignInLink = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile&prompt=select_account&state=${oauthState}`
 
 const showSignInDialog = ref(true);
 watch(authFailure, (newValue) => {

@@ -10,7 +10,8 @@ export const googleAuthCallbackEndpoint = defineEndpoint({
   inputSchema: null,
   handler: async (_input, req) => {
     console.log('Handling Google OAuth callback');
-    const code = new URL(req.url).searchParams.get('code');
+    const url = new URL(req.url);
+    const code = url.searchParams.get('code');
     if (!code) {
       throw new Response('Missing code parameter', {
         status: 400,
@@ -18,9 +19,35 @@ export const googleAuthCallbackEndpoint = defineEndpoint({
       });
     }
 
-    const redirectUri = (env.DENO_DEPLOY_APP_SLUG && env.DENO_DEPLOY_BUILD_ID && env.DENO_DEPLOY_ORG_SLUG)
+    const ourTrueRedirectUri = (env.DENO_DEPLOY_APP_SLUG && env.DENO_DEPLOY_BUILD_ID && env.DENO_DEPLOY_ORG_SLUG)
       ? `https://${env.DENO_DEPLOY_APP_SLUG}-${env.DENO_DEPLOY_BUILD_ID}.${env.DENO_DEPLOY_ORG_SLUG}.deno.net${GOOGLE_OAUTH_REDIRECT_PATH}`
-      : `${env.GOOGLE_OAUTH_REDIRECT_ORIGIN}${GOOGLE_OAUTH_REDIRECT_PATH}`
+      : `${env.VITE_GOOGLE_OAUTH_REDIRECT_ORIGIN}${GOOGLE_OAUTH_REDIRECT_PATH}`
+
+    const oauthState = url.searchParams.get('state');
+    if (oauthState) {
+      try {
+        const parsedOauthState = JSON.parse(oauthState);
+        if (typeof parsedOauthState !== 'object' || parsedOauthState === null || !parsedOauthState.trueRedirectUri) {
+          throw new Error('Unable to parse oauth state: ' + oauthState)
+        }
+
+        const trueRedirectUri = parsedOauthState.trueRedirectUri;
+        if (typeof trueRedirectUri !== 'string' || !trueRedirectUri.endsWith(`${env.DENO_DEPLOY_ORG_SLUG}.deno.net${GOOGLE_OAUTH_REDIRECT_PATH}`)) {
+          throw new Error('invalid trueRedirectUri: ' + JSON.stringify(trueRedirectUri));
+        }
+        
+        // Create redirect response
+        console.log('redirecting auth cb to ' + trueRedirectUri);
+        return new Response(null, {
+          status: 302,
+          headers: {
+            'Location': trueRedirectUri + '?code=' + encodeURIComponent(code),
+          },
+        });
+      } catch (err) {
+        console.warn(err);
+      }
+    }
 
     const response = await fetch(env.GOOGLE_OAUTH_ACCESS_TOKEN_URL, {
       method: "POST",
@@ -28,8 +55,11 @@ export const googleAuthCallbackEndpoint = defineEndpoint({
         code,
         client_id: env.VITE_GOOGLE_OAUTH_CLIENT_ID,
         client_secret: env.GOOGLE_OAUTH_CLIENT_SECRET,
-        redirect_uri: redirectUri,
+        redirect_uri: `${env.VITE_GOOGLE_OAUTH_REDIRECT_ORIGIN}${GOOGLE_OAUTH_REDIRECT_PATH}`,
         grant_type: 'authorization_code',
+        state: {
+          trueRedirectUri: ourTrueRedirectUri,
+        }
       }),
     });
     const accessTokenData = await response.json();
