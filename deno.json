@@ -27,7 +27,8 @@
       "server",
       "deno.*"
     ],
-    "entrypoint": "server/main.ts"
+    "entrypoint": "server/main.ts",
+    "runtime": "2.7.13"
   },
   "fmt": {
     "singleQuote": true,
@@ -35,7 +36,7 @@
     "semiColons": true
   },
   "imports": {
-    "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.5",
+    "@deno/vite-plugin": "npm:@deno/vite-plugin@^2.0.2",
     "@googlemaps/js-api-loader": "npm:@googlemaps/js-api-loader@^2.0.2",
     "@mdi/font": "npm:@mdi/font@7.4.47",
     "@neondatabase/serverless": "npm:@neondatabase/serverless@^1.0.2",
