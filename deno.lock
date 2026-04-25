@@ -12,7 +12,7 @@
     "jsr:@std/net@^1.0.6": "1.0.6",
     "jsr:@std/path@^1.1.2": "1.1.2",
     "jsr:@std/streams@^1.0.13": "1.0.13",
-    "npm:@deno/vite-plugin@^1.0.5": "1.0.5_vite@7.2.2__@types+node@22.19.0__sass-embedded@1.93.3__picomatch@4.0.3_@types+node@22.19.0_sass-embedded@1.93.3",
+
     "npm:@googlemaps/js-api-loader@^2.0.2": "2.0.2",
     "npm:@mdi/font@7.4.47": "7.4.47",
     "npm:@neondatabase/serverless@^1.0.2": "1.0.2",
@@ -117,12 +117,6 @@
     },
     "@bufbuild/protobuf@2.10.0": {
       "integrity": "sha512-fdRs9PSrBF7QUntpZpq6BTw58fhgGJojgg39m9oFOJGZT+nip9b0so5cYY1oWl5pvemDLr0cPPsH46vwThEbpQ=="
-    },
-    "@deno/vite-plugin@1.0.5_vite@7.2.2__@types+node@22.19.0__sass-embedded@1.93.3__picomatch@4.0.3_@types+node@22.19.0_sass-embedded@1.93.3": {
-      "integrity": "sha512-tLja5n4dyMhcze1NzvSs2iiriBymfBlDCZIrjMTxb9O2ru0gvmV6mn5oBD2teNw5Sd92cj3YJzKwsAs8tMJXlg==",
-      "dependencies": [
-        "vite"
-      ]
     },
     "@drizzle-team/brocli@0.10.2": {
       "integrity": "sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w=="
@@ -2004,7 +1998,7 @@
   "workspace": {
     "dependencies": [
       "jsr:@std/http@^1.0.21",
-      "npm:@deno/vite-plugin@^1.0.5",
+      "npm:@deno/vite-plugin@^2.0.2",
       "npm:@googlemaps/js-api-loader@^2.0.2",
       "npm:@mdi/font@7.4.47",
       "npm:@neondatabase/serverless@^1.0.2",
