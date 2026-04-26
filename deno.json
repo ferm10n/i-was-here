@@ -6,8 +6,7 @@
     "preview": "deno run --env -A --node-modules-dir npm:vite preview",
     "serve": "deno run --env --watch --allow-env --allow-net --allow-read server/main.ts",
     "db:generate": "deno --env -A --node-modules-dir npm:drizzle-kit generate",
-    "db:migrate": "deno --env -A --node-modules-dir npm:drizzle-kit migrate",
-    "db:push": "deno --env -A --node-modules-dir npm:drizzle-kit push"
+    "db:migrate": "deno --env -A --node-modules-dir npm:drizzle-kit migrate"
   },
   "compilerOptions": {
     "strict": true,
